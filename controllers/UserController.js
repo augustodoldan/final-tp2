@@ -1,27 +1,31 @@
 import UserService from "../services/UserService.js";
+import CustomError from "../utils/errors/CustomError.js";
 
 class UserController {
   userService = new UserService();
 
-  createUser = async (req, res) => {
+  createUser = async (req, res, next) => {
     try {
       const { id, name } = req.body;
       if (!id || !name) {
-        throw new Error("El id y el nombre son obligatorios");
+        throw new CustomError("El id y el nombre son obligatorios", 400);
       }
       const user = await this.userService.addUser(id, name);
       res.status(200).send(user);
     } catch (error) {
-      res.status(400).send(error.message);
+      next(error);
     }
   };
 
-  getAllUsers = async (req, res) => {
+  getAllUsers = async (req, res, next) => {
     try {
       const users = await this.userService.getAllUsers();
+      if (users) {
+        throw new CustomError("No hay usuarios", 404);
+      }
       res.status(200).send(users);
     } catch (error) {
-      res.status(400).send(error.message);
+      next(error);
     }
   };
 }
