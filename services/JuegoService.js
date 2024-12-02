@@ -1,9 +1,9 @@
-import User from "../models/User.js";
+import User from "../models/Juego.js";
 
-class UserService {
+class JuegoService {
   user = new User();
 
-  addUser(id, name) {
+  addJuego(id, name) {
     try {
       return this.user.create(id, name);
     } catch (error) {
@@ -16,4 +16,4 @@ class UserService {
   }
 }
 
-export default UserService;
+export default JuegoService;

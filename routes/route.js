@@ -1,11 +1,11 @@
 import { Router } from "express";
-import UserController from "../controllers/UserController.js";
+import JuegoController from "../controllers/JuegoController.js";
 
 const routes = Router();
-const userController = new UserController();
+const juegoController = new JuegoController();
 
-routes.get("/users", userController.getAllUsers);
-routes.post("/user", userController.createUser);
+routes.get("/juegos", juegoController.getAllJuegos);
+routes.post("/juego", juegoController.createJuego);
 
 routes.use((error, req, res, next) => {
   console.log("entor al middleware");
