@@ -1,19 +1,33 @@
-import User from "../models/Juego.js";
+import Juego from "../models/Juego.js";
+import { v4 as uuidv4 } from "uuid";
 
 class JuegoService {
-  user = new User();
+  juego = new Juego();
 
-  addJuego(id, name) {
+  createJuego(juegoValidado) {
     try {
-      return this.user.create(id, name);
+      //  @TODOAUGUSTO
+      //const nuevoJuego = { ...juegoValidado, id: uuidv4() };
+
+      const nuevoJuego = { ...juegoValidado, id: "12345" };
+
+      return this.juego.create(nuevoJuego);
     } catch (error) {
       throw new Error(error.message);
     }
   }
 
-  getAllUsers() {
-    return this.user.getAll();
+  registrarVenta(id, cantidadEnStock) {
+    const registrarVenta = this.juego.registrarVenta(id, cantidadEnStock);
   }
+
+  getAllJuegos() {
+    return this.juego.getAll();
+  }
+
+  findJuegoById = (id) => {
+    return this.juego.findJuegoById(id);
+  };
 }
 
 export default JuegoService;
