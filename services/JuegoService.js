@@ -6,10 +6,7 @@ class JuegoService {
 
   createJuego(juegoValidado) {
     try {
-      //  @TODOAUGUSTO
-      //const nuevoJuego = { ...juegoValidado, id: uuidv4() };
-
-      const nuevoJuego = { ...juegoValidado, id: "12345" };
+      const nuevoJuego = { ...juegoValidado, id: uuidv4() };
 
       return this.juego.create(nuevoJuego);
     } catch (error) {
@@ -17,16 +14,23 @@ class JuegoService {
     }
   }
 
-  registrarVenta(id, cantidadEnStock) {
-    const registrarVenta = this.juego.registrarVenta(id, cantidadEnStock);
+  async registrarVenta(id, cantidadEnStock) {
+    const registrarVenta = await this.juego.registrarVenta(id, cantidadEnStock);
+    console.log(registrarVenta);
+    return registrarVenta;
   }
 
-  getAllJuegos() {
-    return this.juego.getAll();
+  async getAllJuegos() {
+    return await this.juego.getAlll();
   }
 
   findJuegoById = (id) => {
     return this.juego.findJuegoById(id);
+  };
+
+  obtenerPorCategorias = () => {
+    const categorias = this.juego.obtenerPorCategorias();
+    return categorias;
   };
 }
 

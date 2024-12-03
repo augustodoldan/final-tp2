@@ -1,4 +1,4 @@
-import CustomError from "../utils/errors/CustomError";
+import CustomError from "../utils/errors/CustomError.js";
 
 export const CATEGORIAS_PERMITIDAS = [
   "estrategia",
@@ -31,6 +31,23 @@ class Juego {
     } else {
       juegoEncontrado.cantidadEnStock -= cantidadEnStock;
     }
+
+    return juegoEncontrado;
+  };
+
+  obtenerPorCategorias = () => {
+    const categorias = {};
+    this.juegos.forEach((categoria) => {
+      if (categorias[categoria]) {
+        categorias[categoria] += 1;
+      } else {
+        categorias[categoria] = 1;
+        console.log(categorias[categoria], "cantidad en else");
+      }
+    });
+
+    console.log(categorias);
+    return categorias;
   };
 }
 

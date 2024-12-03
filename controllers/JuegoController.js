@@ -29,26 +29,52 @@ class JuegoController {
       if (!juego) {
         throw new CustomError("No se encontro el juego", 404);
       }
-      const registrarVenta = this.juegoService.registrarVenta(
-        id,
-        cantidadEnStock
-      );
-      res.status(200).send("Juego eliminado");
+      const venta = await this.juegoService.registrarVenta(id, cantidadEnStock);
+      res
+        .status(200)
+        .send(
+          `Venta registada, te quedan ${venta.cantidadEnStock} del producto: ${venta.nombre}`
+        );
     } catch (error) {
       next(error);
     }
   };
-  /* getAllJuegos = async (req, res, next) => {
+  getAllJuegos = async (req, res, next) => {
     try {
       const juegos = await this.juegoService.getAllJuegos();
-      if (juegos) {
-        throw new CustomError("No hay usuarios", 404);
+      if (!juegos) {
+        throw new CustomError("No hay juegos", 404);
       }
       res.status(200).send(juegos);
     } catch (error) {
       next(error);
     }
-  }; */
+  };
+
+  getUnidadesVendidas = async (req, res, next) => {
+    try {
+      const juegos = await this.juegoService.getAllJuegos();
+      if (!juegos) {
+        throw new CustomError("No hay juegos", 404);
+      }
+      const unidadesVendidas = juegos.reduce((acc, juego) => {
+        return acc + (juego.cantidadEnStockInicial - juego.cantidadEnStock);
+      }, 0);
+      res.status(200).send({ unidadesVendidas });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  obtenerPorCategorias = async (req, res, next) => {
+    try {
+      const categorias = await this.juegoService.obtenerPorCategorias();
+      res.status(200).json({ cantidad: categorias });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send(error.message);
+    }
+  };
 }
 
 export default JuegoController;
