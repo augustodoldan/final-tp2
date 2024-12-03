@@ -58,7 +58,7 @@ class JuegoController {
         throw new CustomError("No hay juegos", 404);
       }
       const unidadesVendidas = juegos.reduce((acc, juego) => {
-        return acc + (juego.cantidadEnStockInicial - juego.cantidadEnStock);
+        return acc + juego.cantidadEnStock;
       }, 0);
       res.status(200).send({ unidadesVendidas });
     } catch (error) {

@@ -21,7 +21,9 @@ class JuegoService {
   }
 
   async getAllJuegos() {
-    return await this.juego.getAlll();
+    console.log("entro a gettalljuegos");
+    console.log(this.juego.getAll());
+    return await this.juego.getAll();
   }
 
   findJuegoById = (id) => {
