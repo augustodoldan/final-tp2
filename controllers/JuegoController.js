@@ -69,7 +69,7 @@ class JuegoController {
   obtenerPorCategorias = async (req, res, next) => {
     try {
       const categorias = await this.juegoService.obtenerPorCategorias();
-      res.status(200).json({ cantidad: categorias });
+      res.status(200).json({ unidadesVendidas: categorias });
     } catch (error) {
       console.log(error.message);
       res.status(500).send(error.message);
